@@ -8,6 +8,19 @@ def report_word_in_file(word, file):
     return occurrence_lines
 
 
+def report_word_in_file_with_content(word, file):
+    occurrence_lines = []
+
+    for index, line in enumerate(file['linhas_do_arquivo']):
+        if word.lower() in line.lower():
+            occurrence_lines.append({
+                'linha': index + 1,
+                'conteudo': line
+            })
+
+    return occurrence_lines
+
+
 def generate_report_word_in_file(word, instance, report_method):
     results = []
 
@@ -29,4 +42,6 @@ def exists_word(word, instance):
 
 
 def search_by_word(word, instance):
-    """Aqui irá sua implementação"""
+    return generate_report_word_in_file(
+        word, instance, report_word_in_file_with_content
+    )
